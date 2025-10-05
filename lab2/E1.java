@@ -16,15 +16,26 @@ public class E1{
 
         QWriter writer = new QWriter();
         int[] new_arr = new int[arr.length];
-        writer.println(arr[arr.length / 3]);
+        int min_median = arr[arr.length / 3];
+        writer.println(min_median);
 
+        int period = 0; // the num of period that has a head smaller than min_media
         int L = 0;
         int R = arr.length / 3;
-        for (int i = 0; i < arr.length; i++){
-            if (i % 3 == 0){
-                new_arr[i] = arr[L++];
+        for (int i = 0; i < arr.length / 3; i++){
+            if (arr[i] != min_median){
+                new_arr[i * 3] = arr[i];
+                period++;
             }else{
-                new_arr[i] = arr[R++];
+                break;
+            }
+        }
+        int pnt = period;
+        for (int i = 0; i < arr.length; i++){
+            if (i / 3 < period && i % 3 != 0){
+                new_arr[i] = arr[pnt++]; // period with smallest num of 3
+            }else if (i / 3 >= period){
+                new_arr[i] = arr[pnt++]; // period without smallest num of 3
             }
         }
 
